@@ -44,6 +44,12 @@ model Questions {
   createdAt DateTime @default(now())
 }
 
+model Aboutme {
+  id      Int    @id @default(autoincrement())
+  name    String
+  message String
+}
+
 enum Status {
   DRAFT
   PUBLISHED

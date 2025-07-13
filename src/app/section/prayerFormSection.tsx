@@ -51,7 +51,7 @@ function PrayerForm(for_prayer: Prayerformprop) {
   return (
     <div className="max-w-md mx-auto  my-20 p-8 bg-background-200 rounded-lg shadow-xl">
       <h2 className="text-2xl font-bold text-center text-accent-500 mb-8">
-        {for_prayer ? "Prayer request" : "Concact form"}
+        {for_prayer.for_prayer ? "Prayer request" : "Send us a message "}
       </h2>
       <form onSubmit={handleSumbit} className="space-y-6">
         <div>

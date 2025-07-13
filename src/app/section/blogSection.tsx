@@ -1,25 +1,10 @@
-"use client"
-import React, { useState, useEffect } from "react";
-
+"use client";
+import React from "react";
+import { usePublishedPosts } from "@/hooks/useBlog";
 import SpecialButton from "../components/specialButton";
-import BlogInfoCard from "../components/blogInfoCard"; // Assuming component path
-// import { getPublishedBlogPosts } from "../api/nonauthapi";
-// Define the structure of the raw blog post data returned by the API
-// Assuming API now returns 'details' consistent with blogPage.tsx
-interface ApiBlogPost {
-  slug: string;
-  title: string;
-  videoOfSermon?: string;
-  imageForSermon?: string;
-  creation_date: string;
-  details: string; // Expecting 'details' from the API
-  status: string;
-  author: string;
-  // Add any other fields returned by the API if necessary
-}
+import BlogInfoCard from "../components/blogInfoCard";
 
 // Define the structure expected by the BlogInfoCard component
-// This already expects 'details'
 interface BlogPost {
   slug: string;
   title: string;
@@ -31,72 +16,39 @@ interface BlogPost {
   author: string;
 }
 
+// API response structure
+interface ApiBlogPost {
+  slug: string;
+  title: string;
+  content: string;
+  Status: "DRAFT" | "PUBLISHED";
+  createdAt: string;
+}
+
 /**
  * BlogSection Component
  *
- * Displays a list of the latest 4 blog posts fetched from an API.
- * Renamed from BlogPage to BlogSection to match filename.
+ * Displays a list of the latest 4 blog posts fetched using React Query.
  */
 const BlogSection: React.FC = () => {
-  // State to hold the blog posts (using the structure needed by the component)
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  // State to manage loading status
-  const [loading, setLoading] = useState<boolean>(true);
-  // State to manage potential errors
-  const [error, setError] = useState<string | null>(null);
+  const { data: posts = [], isLoading, error } = usePublishedPosts();
 
-  // useEffect hook to fetch data when the component mounts
-  useEffect(() => {
-    // Define an async function to fetch blog posts
-    const fetchPosts = async () => {
-      setLoading(true); // Ensure loading is true at the start of fetch
-      setError(null); // Reset error state
-      try {
-        // Call the API function to get published blog posts
-        // Assume getPublishedBlogPosts returns an array of ApiBlogPost with 'details'
-     //    const fetchedPosts: ApiBlogPost[] = await getPublishedBlogPosts();
-
-        // Sort posts by creation_date descending to ensure latest are first
-     //    const sortedPosts = fetchedPosts.sort(
-     //      (a, b) =>
-     //        new Date(b.creation_date).getTime() -
-     //        new Date(a.creation_date).getTime()
-     //    );
-
-        // Take only the first 4 posts (or fewer if less than 4 are available)
-     //    const limitedPosts = sortedPosts.slice(0, 4);
-
-        // Transform the raw API data if necessary, ensuring 'details' is present
-        // Use 'details' directly from API, add fallback similar to blogPage.tsx
-     //    const formattedPosts: BlogPost[] = limitedPosts.map((post) => ({
-     //      ...post,
-     //      details: post.details || "<p>Content not available.</p>", // Use API's 'details' directly
-     //    }));
-
-     //    setPosts(formattedPosts); // Set the formatted posts (max 4) to state
-      } catch (e) {
-        if (e instanceof Error) {
-          setError(`Failed to load posts: ${e.message}`); // More specific error message
-        } else {
-          setError("An unknown error occurred while fetching posts.");
-        }
-        console.error("Failed to fetch posts:", e);
-        setPosts([]); // Clear posts on error
-      } finally {
-        // Set loading to false regardless of success or failure
-        setLoading(false);
-      }
-    };
-
-    fetchPosts();
-  }, []); // Empty dependency array ensures this effect runs only once on mount
+  // Transform the API data to match BlogInfoCard expectations
+  const transformedPosts: BlogPost[] = posts.slice(0, 7).map((post) => ({
+    slug: post.slug,
+    title: post.title,
+    videoOfSermon: undefined,
+    imageForSermon: undefined,
+    creation_date: post.createdAt,
+    details: post.content || "<p>Content not available.</p>",
+    status: post.Status,
+    author: "Admin", // Default author since it's not in the schema
+  }));
 
   // Display loading state
-  if (loading) {
+  if (isLoading) {
     return (
       <section className="flex min-h-[300px] items-center justify-center bg-background-50 py-12">
-        {" "}
-        {/* Use section tag, consistent padding */}
         <div className="text-center text-xl text-text-100">
           Loading latest posts...
         </div>
@@ -108,12 +60,9 @@ const BlogSection: React.FC = () => {
   if (error) {
     return (
       <section className="flex min-h-[300px] items-center justify-center bg-background-50 py-12">
-        {" "}
-        {/* Use section tag, consistent padding */}
-        {/* Improved error message styling */}
         <div className="mx-auto max-w-md rounded-lg border border-red-300 bg-red-100 p-6 text-center text-lg text-red-700 shadow-md">
           <p className="mb-2 font-semibold">Oops! Could not load posts.</p>
-          <p>{error}</p>
+          <p>{error.message}</p>
         </div>
       </section>
     );
@@ -132,32 +81,23 @@ const BlogSection: React.FC = () => {
           {/* Adjusted heading size and margin */}
           Our Latest Blog Posts
         </h2>
-        {posts.length > 0 ? ( // Corrected condition to show grid if posts exist
-          // Responsive grid layout for blog cards
-          // Removed max-w-xl to allow grid to use container width
-          // Simplified grid column definition for better responsiveness
-          // Grid layout for blog cards, ensuring responsiveness and spacing.
-          // Limits the display to the first 4 posts using slice(0, 4).
+        {transformedPosts.length > 0 ? (
           <div>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 md:gap-8 lg:portrait:grid-cols-2">
-              {posts.slice(0, 7).map(
-                (
-                  post // Display only the first 4 posts
-                ) => (
-                  <BlogInfoCard key={post.slug} post={post} />
-                )
-              )}
+              {transformedPosts.map((post) => (
+                <BlogInfoCard key={post.slug} post={post} />
+              ))}
             </div>
             <div className="flex justify-center">
-            <a 
-              href="/blog" 
-              className="mt-12 inline-flex flex-col items-center gap-3 text-center transition-all hover:transform hover:scale-105"
-            >
-              <p className="text-lg font-medium text-text-500">
-                Explore All Our Blog Posts
-              </p>
-              <SpecialButton inform="View More" />
-            </a>
+              <a
+                href="/blog"
+                className="mt-12 inline-flex flex-col items-center gap-3 text-center transition-all hover:transform hover:scale-105"
+              >
+                <p className="text-lg font-medium text-text-500">
+                  Explore All Our Blog Posts
+                </p>
+                <SpecialButton inform="View More" />
+              </a>
             </div>
           </div>
         ) : (

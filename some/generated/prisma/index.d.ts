@@ -38,6 +38,11 @@ export type NewletterPost = $Result.DefaultSelection<Prisma.$NewletterPostPayloa
  * 
  */
 export type Questions = $Result.DefaultSelection<Prisma.$QuestionsPayload>
+/**
+ * Model Aboutme
+ * 
+ */
+export type Aboutme = $Result.DefaultSelection<Prisma.$AboutmePayload>
 
 /**
  * Enums
@@ -230,6 +235,16 @@ export class PrismaClient<
     * ```
     */
   get questions(): Prisma.QuestionsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.aboutme`: Exposes CRUD operations for the **Aboutme** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Aboutmes
+    * const aboutmes = await prisma.aboutme.findMany()
+    * ```
+    */
+  get aboutme(): Prisma.AboutmeDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -674,7 +689,8 @@ export namespace Prisma {
     PrayerRequest: 'PrayerRequest',
     EmailContact: 'EmailContact',
     NewletterPost: 'NewletterPost',
-    Questions: 'Questions'
+    Questions: 'Questions',
+    Aboutme: 'Aboutme'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -693,7 +709,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "post" | "prayerRequest" | "emailContact" | "newletterPost" | "questions"
+      modelProps: "post" | "prayerRequest" | "emailContact" | "newletterPost" | "questions" | "aboutme"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1067,6 +1083,80 @@ export namespace Prisma {
           }
         }
       }
+      Aboutme: {
+        payload: Prisma.$AboutmePayload<ExtArgs>
+        fields: Prisma.AboutmeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AboutmeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AboutmePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AboutmeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AboutmePayload>
+          }
+          findFirst: {
+            args: Prisma.AboutmeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AboutmePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AboutmeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AboutmePayload>
+          }
+          findMany: {
+            args: Prisma.AboutmeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AboutmePayload>[]
+          }
+          create: {
+            args: Prisma.AboutmeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AboutmePayload>
+          }
+          createMany: {
+            args: Prisma.AboutmeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AboutmeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AboutmePayload>[]
+          }
+          delete: {
+            args: Prisma.AboutmeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AboutmePayload>
+          }
+          update: {
+            args: Prisma.AboutmeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AboutmePayload>
+          }
+          deleteMany: {
+            args: Prisma.AboutmeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AboutmeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AboutmeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AboutmePayload>[]
+          }
+          upsert: {
+            args: Prisma.AboutmeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AboutmePayload>
+          }
+          aggregate: {
+            args: Prisma.AboutmeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAboutme>
+          }
+          groupBy: {
+            args: Prisma.AboutmeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AboutmeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AboutmeCountArgs<ExtArgs>
+            result: $Utils.Optional<AboutmeCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1156,6 +1246,7 @@ export namespace Prisma {
     emailContact?: EmailContactOmit
     newletterPost?: NewletterPostOmit
     questions?: QuestionsOmit
+    aboutme?: AboutmeOmit
   }
 
   /* Types for Logging */
@@ -6300,6 +6391,1007 @@ export namespace Prisma {
 
 
   /**
+   * Model Aboutme
+   */
+
+  export type AggregateAboutme = {
+    _count: AboutmeCountAggregateOutputType | null
+    _avg: AboutmeAvgAggregateOutputType | null
+    _sum: AboutmeSumAggregateOutputType | null
+    _min: AboutmeMinAggregateOutputType | null
+    _max: AboutmeMaxAggregateOutputType | null
+  }
+
+  export type AboutmeAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type AboutmeSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type AboutmeMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    message: string | null
+  }
+
+  export type AboutmeMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    message: string | null
+  }
+
+  export type AboutmeCountAggregateOutputType = {
+    id: number
+    name: number
+    message: number
+    _all: number
+  }
+
+
+  export type AboutmeAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type AboutmeSumAggregateInputType = {
+    id?: true
+  }
+
+  export type AboutmeMinAggregateInputType = {
+    id?: true
+    name?: true
+    message?: true
+  }
+
+  export type AboutmeMaxAggregateInputType = {
+    id?: true
+    name?: true
+    message?: true
+  }
+
+  export type AboutmeCountAggregateInputType = {
+    id?: true
+    name?: true
+    message?: true
+    _all?: true
+  }
+
+  export type AboutmeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Aboutme to aggregate.
+     */
+    where?: AboutmeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Aboutmes to fetch.
+     */
+    orderBy?: AboutmeOrderByWithRelationInput | AboutmeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AboutmeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Aboutmes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Aboutmes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Aboutmes
+    **/
+    _count?: true | AboutmeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AboutmeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AboutmeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AboutmeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AboutmeMaxAggregateInputType
+  }
+
+  export type GetAboutmeAggregateType<T extends AboutmeAggregateArgs> = {
+        [P in keyof T & keyof AggregateAboutme]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAboutme[P]>
+      : GetScalarType<T[P], AggregateAboutme[P]>
+  }
+
+
+
+
+  export type AboutmeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AboutmeWhereInput
+    orderBy?: AboutmeOrderByWithAggregationInput | AboutmeOrderByWithAggregationInput[]
+    by: AboutmeScalarFieldEnum[] | AboutmeScalarFieldEnum
+    having?: AboutmeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AboutmeCountAggregateInputType | true
+    _avg?: AboutmeAvgAggregateInputType
+    _sum?: AboutmeSumAggregateInputType
+    _min?: AboutmeMinAggregateInputType
+    _max?: AboutmeMaxAggregateInputType
+  }
+
+  export type AboutmeGroupByOutputType = {
+    id: number
+    name: string
+    message: string
+    _count: AboutmeCountAggregateOutputType | null
+    _avg: AboutmeAvgAggregateOutputType | null
+    _sum: AboutmeSumAggregateOutputType | null
+    _min: AboutmeMinAggregateOutputType | null
+    _max: AboutmeMaxAggregateOutputType | null
+  }
+
+  type GetAboutmeGroupByPayload<T extends AboutmeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AboutmeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AboutmeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AboutmeGroupByOutputType[P]>
+            : GetScalarType<T[P], AboutmeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AboutmeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    message?: boolean
+  }, ExtArgs["result"]["aboutme"]>
+
+  export type AboutmeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    message?: boolean
+  }, ExtArgs["result"]["aboutme"]>
+
+  export type AboutmeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    message?: boolean
+  }, ExtArgs["result"]["aboutme"]>
+
+  export type AboutmeSelectScalar = {
+    id?: boolean
+    name?: boolean
+    message?: boolean
+  }
+
+  export type AboutmeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "message", ExtArgs["result"]["aboutme"]>
+
+  export type $AboutmePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Aboutme"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      message: string
+    }, ExtArgs["result"]["aboutme"]>
+    composites: {}
+  }
+
+  type AboutmeGetPayload<S extends boolean | null | undefined | AboutmeDefaultArgs> = $Result.GetResult<Prisma.$AboutmePayload, S>
+
+  type AboutmeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AboutmeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AboutmeCountAggregateInputType | true
+    }
+
+  export interface AboutmeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Aboutme'], meta: { name: 'Aboutme' } }
+    /**
+     * Find zero or one Aboutme that matches the filter.
+     * @param {AboutmeFindUniqueArgs} args - Arguments to find a Aboutme
+     * @example
+     * // Get one Aboutme
+     * const aboutme = await prisma.aboutme.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AboutmeFindUniqueArgs>(args: SelectSubset<T, AboutmeFindUniqueArgs<ExtArgs>>): Prisma__AboutmeClient<$Result.GetResult<Prisma.$AboutmePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Aboutme that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AboutmeFindUniqueOrThrowArgs} args - Arguments to find a Aboutme
+     * @example
+     * // Get one Aboutme
+     * const aboutme = await prisma.aboutme.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AboutmeFindUniqueOrThrowArgs>(args: SelectSubset<T, AboutmeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AboutmeClient<$Result.GetResult<Prisma.$AboutmePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Aboutme that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AboutmeFindFirstArgs} args - Arguments to find a Aboutme
+     * @example
+     * // Get one Aboutme
+     * const aboutme = await prisma.aboutme.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AboutmeFindFirstArgs>(args?: SelectSubset<T, AboutmeFindFirstArgs<ExtArgs>>): Prisma__AboutmeClient<$Result.GetResult<Prisma.$AboutmePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Aboutme that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AboutmeFindFirstOrThrowArgs} args - Arguments to find a Aboutme
+     * @example
+     * // Get one Aboutme
+     * const aboutme = await prisma.aboutme.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AboutmeFindFirstOrThrowArgs>(args?: SelectSubset<T, AboutmeFindFirstOrThrowArgs<ExtArgs>>): Prisma__AboutmeClient<$Result.GetResult<Prisma.$AboutmePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Aboutmes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AboutmeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Aboutmes
+     * const aboutmes = await prisma.aboutme.findMany()
+     * 
+     * // Get first 10 Aboutmes
+     * const aboutmes = await prisma.aboutme.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const aboutmeWithIdOnly = await prisma.aboutme.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AboutmeFindManyArgs>(args?: SelectSubset<T, AboutmeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AboutmePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Aboutme.
+     * @param {AboutmeCreateArgs} args - Arguments to create a Aboutme.
+     * @example
+     * // Create one Aboutme
+     * const Aboutme = await prisma.aboutme.create({
+     *   data: {
+     *     // ... data to create a Aboutme
+     *   }
+     * })
+     * 
+     */
+    create<T extends AboutmeCreateArgs>(args: SelectSubset<T, AboutmeCreateArgs<ExtArgs>>): Prisma__AboutmeClient<$Result.GetResult<Prisma.$AboutmePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Aboutmes.
+     * @param {AboutmeCreateManyArgs} args - Arguments to create many Aboutmes.
+     * @example
+     * // Create many Aboutmes
+     * const aboutme = await prisma.aboutme.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AboutmeCreateManyArgs>(args?: SelectSubset<T, AboutmeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Aboutmes and returns the data saved in the database.
+     * @param {AboutmeCreateManyAndReturnArgs} args - Arguments to create many Aboutmes.
+     * @example
+     * // Create many Aboutmes
+     * const aboutme = await prisma.aboutme.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Aboutmes and only return the `id`
+     * const aboutmeWithIdOnly = await prisma.aboutme.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AboutmeCreateManyAndReturnArgs>(args?: SelectSubset<T, AboutmeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AboutmePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Aboutme.
+     * @param {AboutmeDeleteArgs} args - Arguments to delete one Aboutme.
+     * @example
+     * // Delete one Aboutme
+     * const Aboutme = await prisma.aboutme.delete({
+     *   where: {
+     *     // ... filter to delete one Aboutme
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AboutmeDeleteArgs>(args: SelectSubset<T, AboutmeDeleteArgs<ExtArgs>>): Prisma__AboutmeClient<$Result.GetResult<Prisma.$AboutmePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Aboutme.
+     * @param {AboutmeUpdateArgs} args - Arguments to update one Aboutme.
+     * @example
+     * // Update one Aboutme
+     * const aboutme = await prisma.aboutme.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AboutmeUpdateArgs>(args: SelectSubset<T, AboutmeUpdateArgs<ExtArgs>>): Prisma__AboutmeClient<$Result.GetResult<Prisma.$AboutmePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Aboutmes.
+     * @param {AboutmeDeleteManyArgs} args - Arguments to filter Aboutmes to delete.
+     * @example
+     * // Delete a few Aboutmes
+     * const { count } = await prisma.aboutme.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AboutmeDeleteManyArgs>(args?: SelectSubset<T, AboutmeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Aboutmes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AboutmeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Aboutmes
+     * const aboutme = await prisma.aboutme.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AboutmeUpdateManyArgs>(args: SelectSubset<T, AboutmeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Aboutmes and returns the data updated in the database.
+     * @param {AboutmeUpdateManyAndReturnArgs} args - Arguments to update many Aboutmes.
+     * @example
+     * // Update many Aboutmes
+     * const aboutme = await prisma.aboutme.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Aboutmes and only return the `id`
+     * const aboutmeWithIdOnly = await prisma.aboutme.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AboutmeUpdateManyAndReturnArgs>(args: SelectSubset<T, AboutmeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AboutmePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Aboutme.
+     * @param {AboutmeUpsertArgs} args - Arguments to update or create a Aboutme.
+     * @example
+     * // Update or create a Aboutme
+     * const aboutme = await prisma.aboutme.upsert({
+     *   create: {
+     *     // ... data to create a Aboutme
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Aboutme we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AboutmeUpsertArgs>(args: SelectSubset<T, AboutmeUpsertArgs<ExtArgs>>): Prisma__AboutmeClient<$Result.GetResult<Prisma.$AboutmePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Aboutmes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AboutmeCountArgs} args - Arguments to filter Aboutmes to count.
+     * @example
+     * // Count the number of Aboutmes
+     * const count = await prisma.aboutme.count({
+     *   where: {
+     *     // ... the filter for the Aboutmes we want to count
+     *   }
+     * })
+    **/
+    count<T extends AboutmeCountArgs>(
+      args?: Subset<T, AboutmeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AboutmeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Aboutme.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AboutmeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AboutmeAggregateArgs>(args: Subset<T, AboutmeAggregateArgs>): Prisma.PrismaPromise<GetAboutmeAggregateType<T>>
+
+    /**
+     * Group by Aboutme.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AboutmeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AboutmeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AboutmeGroupByArgs['orderBy'] }
+        : { orderBy?: AboutmeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AboutmeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAboutmeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Aboutme model
+   */
+  readonly fields: AboutmeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Aboutme.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AboutmeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Aboutme model
+   */
+  interface AboutmeFieldRefs {
+    readonly id: FieldRef<"Aboutme", 'Int'>
+    readonly name: FieldRef<"Aboutme", 'String'>
+    readonly message: FieldRef<"Aboutme", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Aboutme findUnique
+   */
+  export type AboutmeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Aboutme
+     */
+    select?: AboutmeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Aboutme
+     */
+    omit?: AboutmeOmit<ExtArgs> | null
+    /**
+     * Filter, which Aboutme to fetch.
+     */
+    where: AboutmeWhereUniqueInput
+  }
+
+  /**
+   * Aboutme findUniqueOrThrow
+   */
+  export type AboutmeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Aboutme
+     */
+    select?: AboutmeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Aboutme
+     */
+    omit?: AboutmeOmit<ExtArgs> | null
+    /**
+     * Filter, which Aboutme to fetch.
+     */
+    where: AboutmeWhereUniqueInput
+  }
+
+  /**
+   * Aboutme findFirst
+   */
+  export type AboutmeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Aboutme
+     */
+    select?: AboutmeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Aboutme
+     */
+    omit?: AboutmeOmit<ExtArgs> | null
+    /**
+     * Filter, which Aboutme to fetch.
+     */
+    where?: AboutmeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Aboutmes to fetch.
+     */
+    orderBy?: AboutmeOrderByWithRelationInput | AboutmeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Aboutmes.
+     */
+    cursor?: AboutmeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Aboutmes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Aboutmes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Aboutmes.
+     */
+    distinct?: AboutmeScalarFieldEnum | AboutmeScalarFieldEnum[]
+  }
+
+  /**
+   * Aboutme findFirstOrThrow
+   */
+  export type AboutmeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Aboutme
+     */
+    select?: AboutmeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Aboutme
+     */
+    omit?: AboutmeOmit<ExtArgs> | null
+    /**
+     * Filter, which Aboutme to fetch.
+     */
+    where?: AboutmeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Aboutmes to fetch.
+     */
+    orderBy?: AboutmeOrderByWithRelationInput | AboutmeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Aboutmes.
+     */
+    cursor?: AboutmeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Aboutmes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Aboutmes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Aboutmes.
+     */
+    distinct?: AboutmeScalarFieldEnum | AboutmeScalarFieldEnum[]
+  }
+
+  /**
+   * Aboutme findMany
+   */
+  export type AboutmeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Aboutme
+     */
+    select?: AboutmeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Aboutme
+     */
+    omit?: AboutmeOmit<ExtArgs> | null
+    /**
+     * Filter, which Aboutmes to fetch.
+     */
+    where?: AboutmeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Aboutmes to fetch.
+     */
+    orderBy?: AboutmeOrderByWithRelationInput | AboutmeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Aboutmes.
+     */
+    cursor?: AboutmeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Aboutmes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Aboutmes.
+     */
+    skip?: number
+    distinct?: AboutmeScalarFieldEnum | AboutmeScalarFieldEnum[]
+  }
+
+  /**
+   * Aboutme create
+   */
+  export type AboutmeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Aboutme
+     */
+    select?: AboutmeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Aboutme
+     */
+    omit?: AboutmeOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Aboutme.
+     */
+    data: XOR<AboutmeCreateInput, AboutmeUncheckedCreateInput>
+  }
+
+  /**
+   * Aboutme createMany
+   */
+  export type AboutmeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Aboutmes.
+     */
+    data: AboutmeCreateManyInput | AboutmeCreateManyInput[]
+  }
+
+  /**
+   * Aboutme createManyAndReturn
+   */
+  export type AboutmeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Aboutme
+     */
+    select?: AboutmeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Aboutme
+     */
+    omit?: AboutmeOmit<ExtArgs> | null
+    /**
+     * The data used to create many Aboutmes.
+     */
+    data: AboutmeCreateManyInput | AboutmeCreateManyInput[]
+  }
+
+  /**
+   * Aboutme update
+   */
+  export type AboutmeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Aboutme
+     */
+    select?: AboutmeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Aboutme
+     */
+    omit?: AboutmeOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Aboutme.
+     */
+    data: XOR<AboutmeUpdateInput, AboutmeUncheckedUpdateInput>
+    /**
+     * Choose, which Aboutme to update.
+     */
+    where: AboutmeWhereUniqueInput
+  }
+
+  /**
+   * Aboutme updateMany
+   */
+  export type AboutmeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Aboutmes.
+     */
+    data: XOR<AboutmeUpdateManyMutationInput, AboutmeUncheckedUpdateManyInput>
+    /**
+     * Filter which Aboutmes to update
+     */
+    where?: AboutmeWhereInput
+    /**
+     * Limit how many Aboutmes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Aboutme updateManyAndReturn
+   */
+  export type AboutmeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Aboutme
+     */
+    select?: AboutmeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Aboutme
+     */
+    omit?: AboutmeOmit<ExtArgs> | null
+    /**
+     * The data used to update Aboutmes.
+     */
+    data: XOR<AboutmeUpdateManyMutationInput, AboutmeUncheckedUpdateManyInput>
+    /**
+     * Filter which Aboutmes to update
+     */
+    where?: AboutmeWhereInput
+    /**
+     * Limit how many Aboutmes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Aboutme upsert
+   */
+  export type AboutmeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Aboutme
+     */
+    select?: AboutmeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Aboutme
+     */
+    omit?: AboutmeOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Aboutme to update in case it exists.
+     */
+    where: AboutmeWhereUniqueInput
+    /**
+     * In case the Aboutme found by the `where` argument doesn't exist, create a new Aboutme with this data.
+     */
+    create: XOR<AboutmeCreateInput, AboutmeUncheckedCreateInput>
+    /**
+     * In case the Aboutme was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AboutmeUpdateInput, AboutmeUncheckedUpdateInput>
+  }
+
+  /**
+   * Aboutme delete
+   */
+  export type AboutmeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Aboutme
+     */
+    select?: AboutmeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Aboutme
+     */
+    omit?: AboutmeOmit<ExtArgs> | null
+    /**
+     * Filter which Aboutme to delete.
+     */
+    where: AboutmeWhereUniqueInput
+  }
+
+  /**
+   * Aboutme deleteMany
+   */
+  export type AboutmeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Aboutmes to delete
+     */
+    where?: AboutmeWhereInput
+    /**
+     * Limit how many Aboutmes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Aboutme without action
+   */
+  export type AboutmeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Aboutme
+     */
+    select?: AboutmeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Aboutme
+     */
+    omit?: AboutmeOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -6359,6 +7451,15 @@ export namespace Prisma {
   };
 
   export type QuestionsScalarFieldEnum = (typeof QuestionsScalarFieldEnum)[keyof typeof QuestionsScalarFieldEnum]
+
+
+  export const AboutmeScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    message: 'message'
+  };
+
+  export type AboutmeScalarFieldEnum = (typeof AboutmeScalarFieldEnum)[keyof typeof AboutmeScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -6667,6 +7768,50 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Questions"> | Date | string
   }
 
+  export type AboutmeWhereInput = {
+    AND?: AboutmeWhereInput | AboutmeWhereInput[]
+    OR?: AboutmeWhereInput[]
+    NOT?: AboutmeWhereInput | AboutmeWhereInput[]
+    id?: IntFilter<"Aboutme"> | number
+    name?: StringFilter<"Aboutme"> | string
+    message?: StringFilter<"Aboutme"> | string
+  }
+
+  export type AboutmeOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    message?: SortOrder
+  }
+
+  export type AboutmeWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: AboutmeWhereInput | AboutmeWhereInput[]
+    OR?: AboutmeWhereInput[]
+    NOT?: AboutmeWhereInput | AboutmeWhereInput[]
+    name?: StringFilter<"Aboutme"> | string
+    message?: StringFilter<"Aboutme"> | string
+  }, "id">
+
+  export type AboutmeOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    message?: SortOrder
+    _count?: AboutmeCountOrderByAggregateInput
+    _avg?: AboutmeAvgOrderByAggregateInput
+    _max?: AboutmeMaxOrderByAggregateInput
+    _min?: AboutmeMinOrderByAggregateInput
+    _sum?: AboutmeSumOrderByAggregateInput
+  }
+
+  export type AboutmeScalarWhereWithAggregatesInput = {
+    AND?: AboutmeScalarWhereWithAggregatesInput | AboutmeScalarWhereWithAggregatesInput[]
+    OR?: AboutmeScalarWhereWithAggregatesInput[]
+    NOT?: AboutmeScalarWhereWithAggregatesInput | AboutmeScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Aboutme"> | number
+    name?: StringWithAggregatesFilter<"Aboutme"> | string
+    message?: StringWithAggregatesFilter<"Aboutme"> | string
+  }
+
   export type PostCreateInput = {
     slug: string
     title: string
@@ -6905,6 +8050,45 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     question?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AboutmeCreateInput = {
+    name: string
+    message: string
+  }
+
+  export type AboutmeUncheckedCreateInput = {
+    id?: number
+    name: string
+    message: string
+  }
+
+  export type AboutmeUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AboutmeUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AboutmeCreateManyInput = {
+    id?: number
+    name: string
+    message: string
+  }
+
+  export type AboutmeUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AboutmeUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -7157,6 +8341,32 @@ export namespace Prisma {
   }
 
   export type QuestionsSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type AboutmeCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    message?: SortOrder
+  }
+
+  export type AboutmeAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type AboutmeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    message?: SortOrder
+  }
+
+  export type AboutmeMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    message?: SortOrder
+  }
+
+  export type AboutmeSumOrderByAggregateInput = {
     id?: SortOrder
   }
 

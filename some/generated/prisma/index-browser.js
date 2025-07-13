@@ -153,6 +153,12 @@ exports.Prisma.QuestionsScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.AboutmeScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  message: 'message'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -167,7 +173,8 @@ exports.Prisma.ModelName = {
   PrayerRequest: 'PrayerRequest',
   EmailContact: 'EmailContact',
   NewletterPost: 'NewletterPost',
-  Questions: 'Questions'
+  Questions: 'Questions',
+  Aboutme: 'Aboutme'
 };
 
 /**

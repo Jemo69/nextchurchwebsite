@@ -1,24 +1,26 @@
+"use client";
 import React, { useState } from "react";
+import Link from "next/link";
 
 const AdminSidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(true);
 
-  const hrefggleSidebar = () => {
+  const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
   // Define consistent colors for the sidebar
   const baseTextColor = "text-secondary-500";
   const hoverTextColor = "hover:text-secondary-700";
-  const activeaBg = "bg-gray-700";
+  const activeBg = "bg-gray-700";
 
   return (
     <div className="relative">
-      {/* Sidebar hrefggle Button - Only visible on mobile */}
+      {/* Sidebar toggle Button - Only visible on mobile */}
       <button
-        onClick={hrefggleSidebar}
-        className="md:hidden fixed hrefp-4 left-4 z-20 p-1 rounded-lg bg-background-600 text-white hover:bg-background-700 transition-colors duration-200 shadow-lg"
-        aria-label="hrefggle sidebar"
+        onClick={toggleSidebar}
+        className="md:hidden fixed top-4 left-4 z-20 p-1 rounded-lg bg-background-600 text-white hover:bg-background-700 transition-colors duration-200 shadow-lg"
+        aria-label="toggle sidebar"
       >
         <svg
           className="h-7 w-7"
@@ -41,26 +43,28 @@ const AdminSidebar: React.FC = () => {
       <aside
         className={`${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } fixed hrefp-0 left-0 z-40 h-screen w-72 bg-background-200 transform transition-transform duration-300 ease-in-out md:translate-x-0 shadow-xl`}
+        } fixed top-0 left-0 z-40 h-screen w-72 bg-background-200 transform transition-transform duration-300 ease-in-out md:translate-x-0 shadow-xl`}
       >
         {/* Logo Section */}
         <div className="p-6 border-b border-gray-700">
-          <a href="/admin" className="flex items-center space-x-4">
+          <Link href="/admin" className="flex items-center space-x-4">
             <img
               src="https://18nlg60l9z.ufs.sh/f/XtuuqJbb4M5FERVSOteiVoFqWR1uLZhSajd85x2cCPeDN0QJ"
               alt="logo"
               className="w-10 h-10"
             />
-            <span className="text-white font-semibold text-xl">Admin Portal</span>
-          </a>
+            <span className="text-white font-semibold text-xl">
+              Admin Portal
+            </span>
+          </Link>
         </div>
 
-        {/* Navigation as */}
+        {/* Navigation */}
         <nav className="mt-8 px-6">
           <div className="space-y-3">
-            <a
-              href="/admin"
-              className={`flex items-center px-5 py-4 rounded-lg ${baseTextColor} ${hoverTextColor} hover:${activeaBg} transition-colors duration-200 text-lg`}
+            <Link
+              href="/admin/blog"
+              className={`flex items-center px-5 py-4 rounded-lg ${baseTextColor} ${hoverTextColor} hover:${activeBg} transition-colors duration-200 text-lg`}
             >
               <svg
                 className="w-5 h-5 mr-3"
@@ -76,11 +80,11 @@ const AdminSidebar: React.FC = () => {
                 />
               </svg>
               <span>Blog</span>
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="/admin/prayer-requests"
-              className={`flex items-center px-5 py-4 rounded-lg ${baseTextColor} ${hoverTextColor} hover:${activeaBg} transition-colors duration-200 text-lg`}
+              className={`flex items-center px-5 py-4 rounded-lg ${baseTextColor} ${hoverTextColor} hover:${activeBg} transition-colors duration-200 text-lg`}
             >
               <svg
                 className="w-5 h-5 mr-3"
@@ -96,11 +100,51 @@ const AdminSidebar: React.FC = () => {
                 />
               </svg>
               <span>Prayer Requests</span>
-            </a>
+            </Link>
 
-            <a
+            <Link
+              href="/admin/newsletter"
+              className={`flex items-center px-5 py-4 rounded-lg ${baseTextColor} ${hoverTextColor} hover:${activeBg} transition-colors duration-200 text-lg`}
+            >
+              <svg
+                className="w-5 h-5 mr-3"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+              </svg>
+              <span>Newsletter</span>
+            </Link>
+
+            <Link
+              href="/admin/emailcontact"
+              className={`flex items-center px-5 py-4 rounded-lg ${baseTextColor} ${hoverTextColor} hover:${activeBg} transition-colors duration-200 text-lg`}
+            >
+              <svg
+                className="w-5 h-5 mr-3"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+              </svg>
+              <span>Email Contact</span>
+            </Link>
+
+            <Link
               href="/admin/questions"
-              className={`flex items-center px-5 py-4 rounded-lg ${baseTextColor} ${hoverTextColor} hover:${activeaBg} transition-colors duration-200 text-lg`}
+              className={`flex items-center px-5 py-4 rounded-lg ${baseTextColor} ${hoverTextColor} hover:${activeBg} transition-colors duration-200 text-lg`}
             >
               <svg
                 className="w-5 h-5 mr-3"
@@ -116,11 +160,11 @@ const AdminSidebar: React.FC = () => {
                 />
               </svg>
               <span>Questions</span>
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="/admin/aboutme"
-              className={`flex items-center px-5 py-4 rounded-lg ${baseTextColor} ${hoverTextColor} hover:${activeaBg} transition-colors duration-200 text-lg`}
+              className={`flex items-center px-5 py-4 rounded-lg ${baseTextColor} ${hoverTextColor} hover:${activeBg} transition-colors duration-200 text-lg`}
             >
               <svg
                 className="w-5 h-5 mr-3"
@@ -136,7 +180,7 @@ const AdminSidebar: React.FC = () => {
                 />
               </svg>
               <span>About me</span>
-            </a>
+            </Link>
           </div>
         </nav>
       </aside>
@@ -145,7 +189,7 @@ const AdminSidebar: React.FC = () => {
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-60 z-30 md:hidden backdrop-blur-sm transition-opacity duration-300"
-          onClick={hrefggleSidebar}
+          onClick={toggleSidebar}
           aria-hidden="true"
         />
       )}
