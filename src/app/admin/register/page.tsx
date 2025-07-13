@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [securityCode, setSecurityCode] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
 
@@ -13,22 +14,23 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
 
-    const res = await fetch("/api/login", {
+    const res = await fetch("/api/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, password, securityCode }),
     });
 
     if (res.ok) {
-      router.push("/admin/dashboard");
+      router.push("/admin/login");
     } else {
-      setError("Invalid username or password");
+      const data = await res.json();
+      setError(data.message || "Registration failed");
     }
   };
 
   return (
     <div>
-      <h1>Admin Login</h1>
+      <h1>Register New User</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -42,12 +44,15 @@ export default function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Login</button>
+        <input
+          type="text"
+          placeholder="Security Code"
+          value={securityCode}
+          onChange={(e) => setSecurityCode(e.target.value)}
+        />
+        <button type="submit">Register</button>
         {error && <p>{error}</p>}
       </form>
-      <p>
-        Don't have an account? <a href="/admin/register">Register</a>
-      </p>
     </div>
   );
 }

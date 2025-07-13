@@ -1,10 +1,16 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-export async function POST(req: Request) {
-  const { password } = await req.json();
+import { users } from "../register/route";
 
-  if (password === "admin") {
+export async function POST(req: Request) {
+  const { username, password } = await req.json();
+
+  const user = users.find(
+    (user) => user.username === username && user.password === password
+  );
+
+  if (user) {
     const response = NextResponse.json({ success: true });
     cookies().set("auth", "true", { httpOnly: true });
     return response;
@@ -12,6 +18,6 @@ export async function POST(req: Request) {
 
   return NextResponse.json(
     { success: false },
-    { status: 401, statusText: "Invalid password" }
+    { status: 401, statusText: "Invalid username or password" }
   );
 }
