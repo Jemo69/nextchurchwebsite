@@ -14,7 +14,7 @@ export default function Home() {
       <RCCGPraiseHouseWelcome />
       <RCCGPraiseHouseInfo />
       <LeadershipSection />
-      <PrayerForm />
+      <PrayerForm for_prayer={true} />
       <BlogSection />
       <Footer />
     </div>

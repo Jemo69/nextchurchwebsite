@@ -5,27 +5,30 @@ import CustomInput from "../components/input"; // Import the CustomInput compone
 import { METHODS } from "http";
 import { TryCatch } from "@/util/TryCatch";
 // Renamed function to follow React component naming conventions
-function PrayerForm() {
+interface Prayerformprop {
+  for_prayer: boolean;
+}
+function PrayerForm(for_prayer: Prayerformprop) {
   // ? route of api http://127.0.0.1:8000/pr/postPrayer
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [request, setRequest] = useState("");
   const [message, setMessage] = useState("");
-interface PrayerRequest {
-    name : string,
-    email : string
-    message : string
-}
+  interface PrayerRequest {
+    name: string;
+    email: string;
+  }
   // Added type annotation for the event object
   const handleSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setMessage(""); // Clear previous messages on new submission attempt
-    const response = await TryCatch<Promise<PrayerRequest>>(
+    const response = await TryCatch(
       fetch("api/prayer-request/", {
         method: "POST",
         body: JSON.stringify({
           name: name,
           email: email,
+          for_prayer: for_prayer,
           message: request,
         }),
       })
@@ -46,9 +49,9 @@ interface PrayerRequest {
 
   // Added JSX return statement for the form component
   return (
-    <div className="max-w-md mx-auto  my-20 p-8 bg-background-600 rounded-lg shadow-xl">
+    <div className="max-w-md mx-auto  my-20 p-8 bg-background-200 rounded-lg shadow-xl">
       <h2 className="text-2xl font-bold text-center text-accent-500 mb-8">
-        Prayer Request
+        {for_prayer ? "Prayer request" : "Concact form"}
       </h2>
       <form onSubmit={handleSumbit} className="space-y-6">
         <div>

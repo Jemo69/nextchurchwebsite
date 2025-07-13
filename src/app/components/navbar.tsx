@@ -10,13 +10,13 @@ const Navbar: React.FC = () => {
   };
 
   // Define base text color and hover/focus color for consistency
-  const baseTextColor = "text-secondary-200"; // Lighter text for better contrast on dark background
+  const baseTextColor = "text-secondary-600 font-bold"; // Lighter text for better contrast on dark background
   const hoverFocusTextColor = "hover:text-primary-300 focus:text-primary-300";
   const mobileHoverBgColor = "hover:bg-secondary-700"; // Slightly lighter blue background on hover for mobile
 
   return (
     // Use a darker secondary background and a lighter text color for contrast
-    <nav className="bg-gray-400 text-secondary-100 sticky top-0 p-4 shadow-md">
+    <nav className="bg-gray-600 text-secondary-100 sticky top-0 p-4 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo/Brand Name - Ensure text color matches */}
         <Link href="/" className="text-xl font-bold flex flex-row items-center">

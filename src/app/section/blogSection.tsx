@@ -162,7 +162,7 @@ const BlogSection: React.FC = () => {
           </div>
         ) : (
           // Message displayed when no posts are available
-          <p className="mt-10 text-center text-lg text-text-100">
+          <p className="mt-10 text-center text-lg text-text-500">
             No blog posts found. Check back later!
           </p>
         )}
