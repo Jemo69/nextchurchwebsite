@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../some/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:../../db.sqlite"
+}
+
+model Post {
+  slug      String   @id
+  title     String
+  content   String
+  Status    Status
+  createdAt DateTime @default(now())
+}
+
+model PrayerRequest {
+  id      Int    @id @default(autoincrement())
+  name    String
+  email   String
+  message String
+}
+
+model EmailContact {
+  id            Int     @id @default(autoincrement())
+  name          String
+  email         String
+  is_subscriber Boolean
+}
+
+model NewletterPost {
+  id        Int      @id @default(autoincrement())
+  title     String
+  status    Status
+  content   String
+  createdAt DateTime @default(now())
+}
+
+model Questions {
+  id        Int      @id @default(autoincrement())
+  question  String
+  createdAt DateTime @default(now())
+}
+
+enum Status {
+  DRAFT
+  PUBLISHED
+}
