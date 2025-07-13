@@ -32,17 +32,17 @@ const WhoWeAreSection = () => {
                     <div className="grid grid-cols-2 gap-4">
                         {/* Placeholder images - replace with actual images */}
                         <img
-                            src={placeholderImageUrl}
+                            src={"https://18nlg60l9z.ufs.sh/f/XtuuqJbb4M5FpKTb1V0aSyJCvf1gMG2i8znm7BTbtxKuOAq5"}
                             alt="Church Gathering 1"
                             className="w-full h-auto rounded-lg object-cover"
                         />
                         <img
-                            src={placeholderImageUrl}
+                            src={"https://18nlg60l9z.ufs.sh/f/XtuuqJbb4M5F0sI9mbu53x16kRF9aOtUeEnhsjciQgqXzAfJ"}
                             alt="Church Gathering 2"
                             className="w-full h-auto rounded-lg object-cover"
                         />
                         <img
-                            src={placeholderImageUrl}
+                            src={"https://18nlg60l9z.ufs.sh/f/XtuuqJbb4M5FFFHFFtyrfM9pVJ0iOGyjBtIb4RdokFc865l1"}
                             alt="Church Event 1"
                             className="w-full h-auto rounded-lg object-cover col-span-2"
                         />
