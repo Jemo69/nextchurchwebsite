@@ -4,7 +4,7 @@ generator client {
 }
 datasource db {
      provider = "sqlite"
-     url = "file:../../db.sqlite"
+     url = "file:./db.sqlite"
 }
 model Post {
      slug String @id
@@ -45,4 +45,11 @@ model Aboutme {
 enum Status {
      DRAFT
      PUBLISHED
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
 }
