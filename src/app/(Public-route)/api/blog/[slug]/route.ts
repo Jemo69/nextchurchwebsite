@@ -21,14 +21,13 @@ export async function PUT(request: NextRequest) {
   }
   return NextResponse.json(Data);
 }
-export async function GET_BY_SLUG(request: NextRequest) {
-  const slug = request.nextUrl.searchParams.get("slug")
-  if(slug === null){
-    throw new Error("no slug")
-  }
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { slug: string } }
+) {
   const {Data, Error:PostError} = await TryCatch(prisma.post.findUnique({
     where: {
-      slug: slug,
+      slug: params.slug,
     },
   }));
   if (PostError) {

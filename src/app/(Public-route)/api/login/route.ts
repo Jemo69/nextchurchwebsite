@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import { SignJWT } from "jose";
 import { PrismaClient } from "@prisma/client";
 import { z } from "zod";
 import rateLimit from "@/lib/rate-limiter";
@@ -27,9 +27,11 @@ export async function POST(req: Request) {
     const user = await prisma.user.findUnique({ where: { username } });
 
     if (user && (await bcrypt.compare(password, user.password))) {
-      const token = jwt.sign({ username }, process.env.JWT_SECRET!, {
-        expiresIn: "1h",
-      });
+      const secret = new TextEncoder().encode(process.env.JWT_SECRET!);
+      const token = await new SignJWT({ username })
+        .setProtectedHeader({ alg: "HS256" })
+        .setExpirationTime("1h")
+        .sign(secret);
       const response = NextResponse.json({ success: true });
       cookies().set("auth", token, {
         httpOnly: true,
