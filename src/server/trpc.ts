@@ -7,7 +7,7 @@ import { prisma } from "./db";
  * You can add anything here that you want to be available in your tRPC procedures.
  * For example, user authentication data, database connection, etc.
  */
-export async function createContext(opts: CreateNextContextOptions) {
+export async function createContext(_opts: CreateNextContextOptions) {
   // Example: Get user from request headers or session
   const user = { id: "123", name: "Guest" }; // Replace with actual auth logic
 

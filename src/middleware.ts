@@ -5,7 +5,10 @@ import { jwtVerify } from "jose";
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get("auth")?.value;
 
-  if (request.nextUrl.pathname.startsWith("/admin")) {
+  if (
+    request.nextUrl.pathname.startsWith("/admin") &&
+    !request.nextUrl.pathname.startsWith("/admin/register")
+  ) {
     if (!token) {
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
@@ -14,7 +17,7 @@ export async function middleware(request: NextRequest) {
       const secret = new TextEncoder().encode(process.env.JWT_SECRET!);
       await jwtVerify(token, secret);
       return NextResponse.next();
-    } catch (error) {
+    } catch {
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
   }
