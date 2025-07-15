@@ -167,7 +167,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/jemo/projects/nextchurch/nextchurchwebsite/some/generated/prisma",
+      "value": "C:\\home\\jemo\\projects\\nextchurchwebsite\\some\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -176,12 +176,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "windows",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/jemo/projects/nextchurch/nextchurchwebsite/prisma/schema.prisma",
+    "sourceFilePath": "C:\\home\\jemo\\projects\\nextchurchwebsite\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -194,6 +194,7 @@ const config = {
     "db"
   ],
   "activeProvider": "sqlite",
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {

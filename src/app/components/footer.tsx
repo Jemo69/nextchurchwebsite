@@ -19,7 +19,7 @@ export default function Footer() {
         body: JSON.stringify({
           name: name,
           email: email,
-          is_subcriber: isSubscriber,
+          is_subscriber: isSubscriber,
         }),
       })
     );

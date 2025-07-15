@@ -22,7 +22,7 @@ const LeadershipSection: React.FC = () => {
         <h2 className="text-3xl font-bold text-center text-primary-700 mb-8">
           Meet Our Leadership
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center lg:portrait:grid-cols-2 ">
+        <div className="grid grid-cols-1 md:gap-6 lg:gap-25 lg:grid-cols-3 gap-8 justify-items-center lg:portrait:grid-cols-2 ">
           {leadershipData.map((member) => (
             <InfoCard
               key={member.id}
