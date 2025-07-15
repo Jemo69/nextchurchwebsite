@@ -102,7 +102,7 @@ const Navbar: React.FC = () => {
             Home
           </Link>
           <Link
-            href="/about"
+            href="/about-us"
             onClick={toggleMenu}
             className={`block px-3 py-2 rounded-md text-base font-medium ${baseTextColor} ${mobileHoverBgColor} ${hoverFocusTextColor}`}
           >
@@ -117,7 +117,7 @@ const Navbar: React.FC = () => {
             Blog
           </Link>
           <Link
-            href="/contact"
+            href="/contact-us"
             onClick={toggleMenu}
             className={`block px-3 py-2 rounded-md text-base font-medium ${baseTextColor} ${mobileHoverBgColor} ${hoverFocusTextColor}`}
           >

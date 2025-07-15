@@ -10,10 +10,13 @@ export default function Footer() {
   const [email, setEmail] = useState<string>("");
   const [isSubscriber, setisSubScriber] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
-
+interface sucuess{
+    name :String
+    emai
+}
   const handleSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const response = await TryCatch(
+    const response = await TryCatch<>(
       fetch("api/emailcontact/", {
         method: "POST",
         body: JSON.stringify({
@@ -32,7 +35,6 @@ export default function Footer() {
     } else {
       console.error(response.Error);
       setMessage(
-        " we are having techincal diffcult tryagain later God bless you  "
       );
     }
   };
