@@ -12,9 +12,6 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-  if (request.body === null) {
-    throw new Error("No body found");
-  }
 
   const body = await request.json();
 
@@ -35,9 +32,6 @@ export async function POST(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
-  if (request.body === null) {
-    throw new Error("No body found");
-  }
 
   const body = await request.json();
 

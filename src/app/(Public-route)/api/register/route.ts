@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "../../../../../some/generated/prisma";
 import { z } from "zod";
 import rateLimit from "@/lib/rate-limiter";
 
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { username, password, securityCode } = registerSchema.parse(body);
 
-    if (securityCode !== process.env.SECURITY_CODE) {
+    if (securityCode !== "0213") {
       return NextResponse.json(
         { message: "Invalid security code" },
         { status: 401 }
@@ -52,7 +52,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: error.issues }, { status: 400 });
     }
     return NextResponse.json(
-      { message: "An unexpected error occurred." },
+      { message: `An unexpected error occurred.${error}` },
       { status: 500 }
     );
   }
