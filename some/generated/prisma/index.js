@@ -168,7 +168,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/app/some/generated/prisma",
+      "value": "/home/jemo/projects/nextchurch/nextchurchwebsite/some/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -182,7 +182,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/app/prisma/schema.prisma",
+    "sourceFilePath": "/home/jemo/projects/nextchurch/nextchurchwebsite/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
