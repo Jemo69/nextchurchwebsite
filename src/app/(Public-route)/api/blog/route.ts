@@ -1,6 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { TryCatch } from "@/util/TryCatch";
+
+interface PostBody {
+  slug: string;
+  title: string;
+  content: string;
+  Status?: "PUBLISHED" | "DRAFT";
+}
+
+interface DeleteBody {
+  slug: string;
+}
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const slug = searchParams.get("slug");
@@ -17,16 +29,22 @@ export async function GET(request: NextRequest) {
       }
 
       return NextResponse.json(post);
-    } catch (error: any) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+    } catch (error: unknown) {
+      return NextResponse.json(
+        { error: (error as Error).message },
+        { status: 500 }
+      );
     }
   } else {
     // Get all posts
     try {
       const posts = await prisma.post.findMany();
       return NextResponse.json(posts);
-    } catch (error: any) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+    } catch (error: unknown) {
+      return NextResponse.json(
+        { error: (error as Error).message },
+        { status: 500 }
+      );
     }
   }
 }
@@ -35,7 +53,7 @@ export async function POST(request: NextRequest) {
     throw new Error("No body found");
   }
 
-  const body = await request.json();
+  const body: PostBody = await request.json();
 
   const { Data, Error: PostError } = await TryCatch(
     prisma.post.create({
@@ -56,7 +74,7 @@ export async function DELETE(request: NextRequest) {
   if (request.body === null) {
     throw new Error("No body found");
   }
-  const body = await request.json();
+  const body: DeleteBody = await request.json();
   const { Data, Error: DeleteError } = await TryCatch(
     prisma.post.delete({
       where: {
@@ -73,7 +91,7 @@ export async function PUT(request: NextRequest) {
   if (request.body === null) {
     throw new Error("No body found");
   }
-  const body = await request.json();
+  const body: PostBody = await request.json();
   const { Data, Error: PutError } = await TryCatch(
     prisma.post.update({
       where: {
@@ -89,45 +107,5 @@ export async function PUT(request: NextRequest) {
   if (PutError) {
     return NextResponse.json({ error: PutError.message }, { status: 500 });
   }
-  return NextResponse.json(Data);
-}
-export async function GET_BY_SLUG(request: NextRequest) {
-  const slug = request.nextUrl.searchParams.get("slug");
-
-  if (!slug) {
-    return NextResponse.json(
-      { error: "Slug parameter is required" },
-      { status: 400 }
-    );
-  }
-
-  const { Data, Error } = await TryCatch(
-    prisma.post.findUnique({
-      where: {
-        slug: slug,
-      },
-    })
-  );
-  if (Error) {
-    return NextResponse.json({ error: Error.message }, { status: 500 });
-  }
-  return NextResponse.json(Data);
-}
-export async function GET_ALL_PUBLISHED(request: NextRequest) {
-  const { Data, Error } = await TryCatch(
-    prisma.post.findMany({
-      where: {
-        Status: "PUBLISHED",
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    })
-  );
-
-  if (Error) {
-    return NextResponse.json({ error: Error.message }, { status: 500 });
-  }
-
   return NextResponse.json(Data);
 }

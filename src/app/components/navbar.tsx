@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,9 +21,11 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo/Brand Name - Ensure text color matches */}
         <Link href="/" className="text-xl font-bold flex flex-row items-center">
-          <img
+          <Image
             src="https://18nlg60l9z.ufs.sh/f/XtuuqJbb4M5FERVSOteiVoFqWR1uLZhSajd85x2cCPeDN0QJ"
             alt="logo"
+            width={40}
+            height={40}
             className="w-10 my-3"
           />
           {/* Use consistent text color */}

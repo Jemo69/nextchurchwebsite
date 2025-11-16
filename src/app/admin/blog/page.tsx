@@ -5,7 +5,6 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import AdminSidebar from "../../components/AdminSidebar";
 import CustomInput from "../../components/input";
 import Textarea from "../../components/textarea";
-import SimpleButton from "../../components/button";
 import { LogoutButton } from "../dashboard/LogoutButton";
 
 interface BlogPost {
@@ -19,7 +18,6 @@ interface BlogPost {
 export default function BlogManagementPage() {
   const queryClient = useQueryClient();
   const [isEditing, setIsEditing] = useState(false);
-  const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const [formData, setFormData] = useState({
     slug: "",
     title: "",
@@ -63,7 +61,6 @@ export default function BlogManagementPage() {
       queryClient.invalidateQueries({ queryKey: ["blog"] });
       setFormData({ slug: "", title: "", content: "", Status: "DRAFT" });
       setIsEditing(false);
-      setEditingPost(null);
     },
   });
 
@@ -93,7 +90,6 @@ export default function BlogManagementPage() {
   };
 
   const handleEdit = (post: BlogPost) => {
-    setEditingPost(post);
     setFormData({
       slug: post.slug,
       title: post.title,
@@ -211,7 +207,6 @@ export default function BlogManagementPage() {
                       type="button"
                       onClick={() => {
                         setIsEditing(false);
-                        setEditingPost(null);
                         setFormData({
                           slug: "",
                           title: "",

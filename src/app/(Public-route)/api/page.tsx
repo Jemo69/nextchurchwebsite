@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Navbar from "../../components/navbar";
 import Footer from "../../components/footer";
@@ -20,13 +20,7 @@ export default function BlogPostPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (params.slug) {
-      fetchPost();
-    }
-  }, [params.slug]);
-
-  const fetchPost = async () => {
+  const fetchPost = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -45,7 +39,13 @@ export default function BlogPostPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [params.slug]);
+
+  useEffect(() => {
+    if (params.slug) {
+      fetchPost();
+    }
+  }, [params.slug, fetchPost]);
 
   if (loading) {
     return (
