@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { TryCatch } from "@/util/TryCatch";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   const { Data, Error } = await TryCatch(
     prisma.post.findMany({
       where: {

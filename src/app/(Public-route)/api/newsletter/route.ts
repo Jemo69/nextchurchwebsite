@@ -1,12 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+interface NewsletterPostBody {
+  id?: string;
+  title: string;
+  content: string;
+  status?: "PUBLISHED" | "DRAFT";
+}
+
 export async function GET() {
   try {
     const posts = await prisma.newletterPost.findMany();
     return NextResponse.json(posts);
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 500 }
+    );
   }
 }
 
@@ -15,19 +25,22 @@ export async function POST(request: NextRequest) {
     throw new Error("No body found");
   }
 
-  const body = await request.json();
+  const body: NewsletterPostBody = await request.json();
 
   try {
     const post = await prisma.newletterPost.create({
       data: {
         title: body.title,
         content: body.content,
-        status: body.status,
+        status: body.status || "DRAFT",
       },
     });
     return NextResponse.json(post);
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 500 }
+    );
   }
 }
 
@@ -36,20 +49,23 @@ export async function PUT(request: NextRequest) {
     throw new Error("No body found");
   }
 
-  const body = await request.json();
+  const body: NewsletterPostBody = await request.json();
 
   try {
     const post = await prisma.newletterPost.update({
-      where: { id: body.id },
+      where: { id: body.id ? parseInt(body.id) : undefined },
       data: {
         title: body.title,
         content: body.content,
-        status: body.status,
+        status: body.status || "DRAFT",
       },
     });
     return NextResponse.json(post);
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 500 }
+    );
   }
 }
 
@@ -58,14 +74,17 @@ export async function DELETE(request: NextRequest) {
     throw new Error("No body found");
   }
 
-  const body = await request.json();
+  const body: { id: string } = await request.json();
 
   try {
     const post = await prisma.newletterPost.delete({
-      where: { id: body.id },
+      where: { id: parseInt(body.id) },
     });
     return NextResponse.json(post);
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 500 }
+    );
   }
 }

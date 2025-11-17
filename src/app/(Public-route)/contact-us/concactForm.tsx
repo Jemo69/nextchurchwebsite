@@ -16,12 +16,12 @@ export default function ConcactForm() {
       setName("");
       setEmail("");
       setMessage("");
-    } catch (error: any) {
+    } catch (error: unknown) {
       setNotifcation("something is wrong");
-      if (error.response) {
-        console.error("Error response:", error.response.data);
-      } else {
+      if (error instanceof Error) {
         console.error("Error:", error.message);
+      } else {
+        console.error("An unknown error occurred:", error);
       }
     }
   };

@@ -5,8 +5,8 @@ export async function GET() {
   try {
     const aboutMe = await prisma.aboutme.findMany();
     return NextResponse.json(aboutMe);
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    return NextResponse.json({ error: (error as Error).message }, { status: 500 });
   }
 }
 
@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     throw new Error("No body found");
   }
 
-  const body = await request.json();
+  const body: { name: string; message: string } = await request.json();
 
   try {
     const aboutMe = await prisma.aboutme.create({
@@ -25,8 +25,8 @@ export async function POST(request: NextRequest) {
       },
     });
     return NextResponse.json(aboutMe);
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    return NextResponse.json({ error: (error as Error).message }, { status: 500 });
   }
 }
 
@@ -35,19 +35,19 @@ export async function PUT(request: NextRequest) {
     throw new Error("No body found");
   }
 
-  const body = await request.json();
+  const body: { id: string; name: string; message: string } = await request.json();
 
   try {
     const aboutMe = await prisma.aboutme.update({
-      where: { id: body.id },
+      where: { id: parseInt(body.id) },
       data: {
         name: body.name,
         message: body.message,
       },
     });
     return NextResponse.json(aboutMe);
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    return NextResponse.json({ error: (error as Error).message }, { status: 500 });
   }
 }
 
@@ -56,14 +56,14 @@ export async function DELETE(request: NextRequest) {
     throw new Error("No body found");
   }
 
-  const body = await request.json();
+  const body: { id: string } = await request.json();
 
   try {
     const aboutMe = await prisma.aboutme.delete({
-      where: { id: body.id },
+      where: { id: parseInt(body.id) },
     });
     return NextResponse.json(aboutMe);
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    return NextResponse.json({ error: (error as Error).message }, { status: 500 });
   }
 }
