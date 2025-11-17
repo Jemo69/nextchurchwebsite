@@ -1,5 +1,5 @@
 "use client";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useBlogPost } from "@/hooks/useBlog";
 import Navbar from "../../components/navbar";
 import Footer from "../../components/footer";
@@ -8,7 +8,6 @@ import TitleGetter from "./titlegetter";
 
 export default function BlogPostPage() {
   const params = useParams();
-  const router = useRouter();
   const slug = params.slug as string;
 
   const { data: post, isLoading, error } = useBlogPost(slug);

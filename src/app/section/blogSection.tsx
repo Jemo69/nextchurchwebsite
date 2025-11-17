@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 import { usePublishedPosts } from "@/hooks/useBlog";
 import SpecialButton from "../components/specialButton";
 import BlogInfoCard from "../components/blogInfoCard";
@@ -14,15 +15,6 @@ interface BlogPost {
   details: string; // BlogInfoCard expects 'details'
   status: string;
   author: string;
-}
-
-// API response structure
-interface ApiBlogPost {
-  slug: string;
-  title: string;
-  content: string;
-  Status: "DRAFT" | "PUBLISHED";
-  createdAt: string;
 }
 
 /**
@@ -89,7 +81,7 @@ const BlogSection: React.FC = () => {
               ))}
             </div>
             <div className="flex justify-center">
-              <a
+              <Link
                 href="/blog"
                 className="mt-12 inline-flex flex-col items-center gap-3 text-center transition-all hover:transform hover:scale-105"
               >
@@ -97,7 +89,7 @@ const BlogSection: React.FC = () => {
                   Explore All Our Blog Posts
                 </p>
                 <SpecialButton inform="View More" />
-              </a>
+              </Link>
             </div>
           </div>
         ) : (

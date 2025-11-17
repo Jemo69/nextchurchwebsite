@@ -2,7 +2,6 @@
 import React, { useState } from "react"; // Added React import
 import SimpleButton from "../components/button";
 import CustomInput from "../components/input"; // Import the CustomInput component
-import { METHODS } from "http";
 import { TryCatch } from "@/util/TryCatch";
 // Renamed function to follow React component naming conventions
 interface Prayerformprop {
@@ -14,10 +13,7 @@ function PrayerForm(for_prayer: Prayerformprop) {
   const [email, setEmail] = useState("");
   const [request, setRequest] = useState("");
   const [message, setMessage] = useState("");
-  interface PrayerRequest {
-    name: string;
-    email: string;
-  }
+
   // Added type annotation for the event object
   const handleSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

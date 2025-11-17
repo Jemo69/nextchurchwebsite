@@ -41,7 +41,7 @@ export default function ContactSection() {
           "There was an error sending your message. Please try again."
         );
       }
-    } catch (error) {
+    } catch {
       setSubmitMessage(
         "There was an error sending your message. Please try again."
       );
@@ -59,7 +59,7 @@ export default function ContactSection() {
               Contact Us
             </h2>
             <p className="text-xl text-text-400">
-              Get in touch with us. We'd love to hear from you!
+              Get in touch with us. We&apos;d love to hear from you!
             </p>
           </div>
 
@@ -72,7 +72,7 @@ export default function ContactSection() {
                 </h3>
                 <p className="text-secondary-900 text-lg mb-8">
                   Have questions about our services, events, or want to join our
-                  community? We're here to help and would love to hear from you.
+                  community? We&apos;re here to help and would love to hear from you.
                 </p>
               </div>
 

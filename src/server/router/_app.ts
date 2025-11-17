@@ -1,4 +1,3 @@
-import { exampleRouter } from "./example";
 import { router } from "../trpc";
 
 /**
@@ -7,7 +6,6 @@ import { router } from "../trpc";
  * All procedures are added here.
  */
 export const appRouter = router({
-  example: exampleRouter,
   // Add more routers here if you split your API into multiple files
 });
 

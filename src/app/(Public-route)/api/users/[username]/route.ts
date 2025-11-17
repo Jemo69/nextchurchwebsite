@@ -1,15 +1,25 @@
 import { NextResponse } from "next/server";
-import { users } from "../store";
+import { prisma } from "@/lib/prisma";
 
 export async function GET(
-  req: Request,
-  { params }: { params: { username: string } }
+  request: Request,
+  { params }: { params: Promise<{ username: string }> }
 ) {
-  const user = users.find((user) => user.username === params.username);
+  try {
+    const username = (await params).username;
+    const user = await prisma.user.findUnique({
+      where: { username },
+    });
 
-  if (user) {
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
     return NextResponse.json(user);
+  } catch (error) {
+    if (error instanceof Error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json({ error: "An unknown error occurred" }, { status: 500 });
   }
-
-  return NextResponse.json({ message: "User not found" }, { status: 404 });
 }

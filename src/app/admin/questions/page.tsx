@@ -15,8 +15,8 @@ interface Question {
 export default function QuestionsPage() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [editingQuestion, setEditingQuestion] = useState<Question | null>(null);
   const [formData, setFormData] = useState({
+    id: null as number | null,
     question: "",
   });
 
@@ -49,9 +49,8 @@ export default function QuestionsPage() {
       });
 
       if (response.ok) {
-        setFormData({ question: "" });
+        setFormData({ id: null, question: "" });
         setIsEditing(false);
-        setEditingQuestion(null);
         fetchQuestions();
       }
     } catch (error) {
@@ -60,8 +59,8 @@ export default function QuestionsPage() {
   };
 
   const handleEdit = (question: Question) => {
-    setEditingQuestion(question);
     setFormData({
+      id: question.id,
       question: question.question,
     });
     setIsEditing(true);
@@ -126,8 +125,7 @@ export default function QuestionsPage() {
                       type="button"
                       onClick={() => {
                         setIsEditing(false);
-                        setEditingQuestion(null);
-                        setFormData({ question: "" });
+                        setFormData({ id: null, question: "" });
                       }}
                       className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
                     >
