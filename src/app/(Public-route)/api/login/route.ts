@@ -2,11 +2,9 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import bcrypt from "bcrypt";
 import { SignJWT } from "jose";
-import { PrismaClient } from "../../../../../some/generated/prisma";
+import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import rateLimit from "@/lib/rate-limiter";
-
-const prisma = new PrismaClient();
 
 const limiter = rateLimit({
   interval: 60 * 1000, // 60 seconds

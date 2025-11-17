@@ -1,37 +1,52 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { TryCatch } from "@/util/TryCatch";
-export async function PUT(request: NextRequest) {
-  if (request.body === null) {
-    throw new Error("No body found");
-  }
-  const body = await request.json();
-  const {Data, Error: PutError} = await TryCatch(prisma.post.update({
-    where: {
-      slug: body.slug,
-    },
-    data: {
-      title: body.title,
-      content: body.content,
-      Status: body.Status || "DRAFT",
-    },
-  }));
-  if (PutError) {
-    return NextResponse.json({ error: PutError.message }, { status: 500 });
-  }
-  return NextResponse.json(Data);
-}
+
 export async function GET(
-  request: NextRequest,
-  { params }: { params: { slug: string } }
+  request: Request,
+  { params }: { params: Promise<{ slug: string }> }
 ) {
-  const {Data, Error:PostError} = await TryCatch(prisma.post.findUnique({
-    where: {
-      slug: params.slug,
-    },
-  }));
-  if (PostError) {
-    return NextResponse.json({ error: PostError?.message }, { status: 500 });
+  try {
+    const slug = (await params).slug;
+    const post = await prisma.post.findUnique({
+      where: { slug },
+    });
+
+    if (!post) {
+      return NextResponse.json({ error: "Post not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(post);
+  } catch (error) {
+    if (error instanceof Error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json({ error: "An unknown error occurred" }, { status: 500 });
   }
-  return NextResponse.json(Data);
+}
+
+export async function PUT(
+  request: Request,
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  try {
+    const slug = (await params).slug;
+    const body = await request.json();
+    const { title, content, Status } = body;
+
+    const post = await prisma.post.update({
+      where: { slug },
+      data: {
+        title,
+        content,
+        Status,
+      },
+    });
+
+    return NextResponse.json(post);
+  } catch (error) {
+    if (error instanceof Error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json({ error: "An unknown error occurred" }, { status: 500 });
+  }
 }

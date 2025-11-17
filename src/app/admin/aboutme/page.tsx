@@ -16,8 +16,8 @@ interface AboutMe {
 export default function AboutMePage() {
   const [aboutMe, setAboutMe] = useState<AboutMe[]>([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [editingAboutMe, setEditingAboutMe] = useState<AboutMe | null>(null);
   const [formData, setFormData] = useState({
+    id: null as number | null,
     name: "",
     message: "",
   });
@@ -51,9 +51,8 @@ export default function AboutMePage() {
       });
 
       if (response.ok) {
-        setFormData({ name: "", message: "" });
+        setFormData({ id: null, name: "", message: "" });
         setIsEditing(false);
-        setEditingAboutMe(null);
         fetchAboutMe();
       }
     } catch (error) {
@@ -62,8 +61,8 @@ export default function AboutMePage() {
   };
 
   const handleEdit = (aboutMeItem: AboutMe) => {
-    setEditingAboutMe(aboutMeItem);
     setFormData({
+      id: aboutMeItem.id,
       name: aboutMeItem.name,
       message: aboutMeItem.message,
     });
@@ -138,8 +137,7 @@ export default function AboutMePage() {
                       type="button"
                       onClick={() => {
                         setIsEditing(false);
-                        setEditingAboutMe(null);
-                        setFormData({ name: "", message: "" });
+                        setFormData({ id: null, name: "", message: "" });
                       }}
                       className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
                     >

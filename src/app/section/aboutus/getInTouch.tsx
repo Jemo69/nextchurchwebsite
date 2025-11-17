@@ -1,4 +1,4 @@
-import { Phone, MapPin, Mail, Link } from 'lucide-react'; 
+import { Phone, MapPin, Mail } from 'lucide-react';
 const GetInTouch = () => {
   const contactInfo = [
     { icon: Phone, title: 'Phone', lines: ['+1 (410) 228-7888'] },
