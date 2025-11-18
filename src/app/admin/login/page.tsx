@@ -51,7 +51,7 @@ export default function LoginPage() {
             {error && <p>{error}</p>}
           </form>
           <p>
-            Don't have an account? <a className="text-secondary-500 font-bold hover:text-accent-500" href="/admin/register">Register</a>
+            Don&apos;t have an account? <a className="text-secondary-500 font-bold hover:text-accent-500" href="/admin/register">Register</a>
           </p>
       </div>
     </div>

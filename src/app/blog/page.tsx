@@ -5,14 +5,6 @@ import Link from "next/link";
 import Footer from "../components/footer";
 import { usePublishedPosts } from "@/hooks/useBlog";
 
-interface BlogPost {
-  slug: string;
-  title: string;
-  content: string;
-  Status: "DRAFT" | "PUBLISHED";
-  createdAt: string;
-}
-
 export default function BlogPage() {
   const { data: posts = [], isLoading, error, refetch } = usePublishedPosts();
 
@@ -84,7 +76,7 @@ export default function BlogPage() {
           {/* Blog Posts */}
           {!isLoading && !error && posts.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post, index) => (
+              {posts.map((post) => (
                 <article
                   key={post.slug}
                   className="bg-background-200 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface InfoCardProps {
   image: string;
@@ -15,7 +16,7 @@ const InfoCard: React.FC<InfoCardProps> = ({ image, title, name, className }) =>
       {/* Image Placeholder */}
       <div className="w-1/3  bg-gray-900 flex items-center justify-center">
         {image ? (
-          <img src={image} alt={name} className="w-full h-auto object-cover" />
+          <Image src={image} alt={name} width={100} height={100} className="w-full h-auto object-cover" />
         ) : (
           <span className="text-gray-500">Image Placeholder</span>
         )}

@@ -1,5 +1,5 @@
 "use client";
-// import { subscribeNewsletter } from "../api/endpoint";
+import Image from "next/image";
 import { useState } from "react";
 import SimpleButton from "./button";
 import Checkbox from "./checkbox";
@@ -10,10 +10,6 @@ export default function Footer() {
   const [email, setEmail] = useState<string>("");
   const [isSubscriber, setisSubScriber] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
-interface sucuess{
-    name :String
-    emai
-}
   const handleSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response = await TryCatch<>(
@@ -34,8 +30,7 @@ interface sucuess{
       setisSubScriber(false);
     } else {
       console.error(response.Error);
-      setMessage(
-      );
+      setMessage("Something went wrong");
     }
   };
   const checkBoxOnchange = () => {
@@ -47,8 +42,10 @@ interface sucuess{
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div>
-            <img
+            <Image
               src="https://8331whtezt.ufs.sh/f/KXoBapOHo7mgW5KrvCJ5KhuoVSmA8xOeRf39IwYnFMvJzkC0"
+              width={30}
+              height={30}
               className="30 aspect-auto"
               alt="footer logo"
             />

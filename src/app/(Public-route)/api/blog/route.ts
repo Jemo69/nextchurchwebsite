@@ -17,16 +17,22 @@ export async function GET(request: NextRequest) {
       }
 
       return NextResponse.json(post);
-    } catch (error: any) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+      }
+      return NextResponse.json({ error: "An unknown error occurred" }, { status: 500 });
     }
   } else {
     // Get all posts
     try {
       const posts = await prisma.post.findMany();
       return NextResponse.json(posts);
-    } catch (error: any) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+      }
+      return NextResponse.json({ error: "An unknown error occurred" }, { status: 500 });
     }
   }
 }
@@ -113,7 +119,7 @@ export async function GET_BY_SLUG(request: NextRequest) {
   }
   return NextResponse.json(Data);
 }
-export async function GET_ALL_PUBLISHED(request: NextRequest) {
+export async function GET_ALL_PUBLISHED() {
   const { Data, Error } = await TryCatch(
     prisma.post.findMany({
       where: {

@@ -1,7 +1,7 @@
 import SimpleButton from '../../components/button';
 import LeadershipSection from '@/app/section/leaderShip';
+import Image from 'next/image';
 // Placeholder image URL (replace with actual image URL if available)
-const placeholderImageUrl = "https://placehold.co/400x300/EEE/31343C?text=Placeholder";
 
 // Dummy data for leadership (replace with your actual data)
 
@@ -21,7 +21,7 @@ const WhoWeAreSection = () => {
                             relationships, and serving our community with compassion.
                         </p>
                         <p className="text-gray-200 text-lg mb-6">
-                            At RCCG the praise house , you'll find a diverse group of people from all
+                            At RCCG the praise house , you&apos;ll find a diverse group of people from all
                             walks of life, united by a common desire to connect with God and
                             make a positive impact on the world. We offer a variety of
                             programs and ministries for all ages, designed to help you grow in
@@ -31,19 +31,25 @@ const WhoWeAreSection = () => {
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         {/* Placeholder images - replace with actual images */}
-                        <img
+                        <Image
                             src={"https://18nlg60l9z.ufs.sh/f/XtuuqJbb4M5FpKTb1V0aSyJCvf1gMG2i8znm7BTbtxKuOAq5"}
                             alt="Church Gathering 1"
+                            width={400}
+                            height={300}
                             className="w-full h-auto rounded-lg object-cover"
                         />
-                        <img
+                        <Image
                             src={"https://18nlg60l9z.ufs.sh/f/XtuuqJbb4M5F0sI9mbu53x16kRF9aOtUeEnhsjciQgqXzAfJ"}
                             alt="Church Gathering 2"
+                            width={400}
+                            height={300}
                             className="w-full h-auto rounded-lg object-cover"
                         />
-                        <img
+                        <Image
                             src={"https://18nlg60l9z.ufs.sh/f/XtuuqJbb4M5FFFHFFtyrfM9pVJ0iOGyjBtIb4RdokFc865l1"}
                             alt="Church Event 1"
+                            width={400}
+                            height={300}
                             className="w-full h-auto rounded-lg object-cover col-span-2"
                         />
                     </div>
@@ -59,7 +65,7 @@ const WelcomeSection = () => {
         <section className="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-800 to-gray-900 text-white">
             <div className="max-w-7xl mx-auto text-center">
                 <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-                    We'd love for you to join us this Sunday!
+                    We&apos;d love for you to join us this Sunday!
                 </h2>
                 <p className="text-lg mb-8">
                     Experience the warmth of our community and the power of faith.  All are welcome!

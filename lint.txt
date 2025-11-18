@@ -1,0 +1,5 @@
+
+> nextchurchwebsite@0.1.0 lint /home/jemo/projects/nextchurch/nextchurchwebsite
+> next lint
+
+ ELIFECYCLE  Command failed with exit code 1.

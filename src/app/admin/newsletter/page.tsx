@@ -18,7 +18,6 @@ interface NewsletterPost {
 export default function NewsletterPage() {
   const [posts, setPosts] = useState<NewsletterPost[]>([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [editingPost, setEditingPost] = useState<NewsletterPost | null>(null);
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -56,7 +55,6 @@ export default function NewsletterPage() {
       if (response.ok) {
         setFormData({ title: "", content: "", status: "DRAFT" });
         setIsEditing(false);
-        setEditingPost(null);
         fetchPosts();
       }
     } catch (error) {
@@ -65,7 +63,6 @@ export default function NewsletterPage() {
   };
 
   const handleEdit = (post: NewsletterPost) => {
-    setEditingPost(post);
     setFormData({
       title: post.title,
       content: post.content,
@@ -158,7 +155,6 @@ export default function NewsletterPage() {
                       type="button"
                       onClick={() => {
                         setIsEditing(false);
-                        setEditingPost(null);
                         setFormData({
                           title: "",
                           content: "",

@@ -1,5 +1,4 @@
 import { initTRPC } from "@trpc/server";
-import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import { prisma } from "./db";
 
 /**
@@ -7,7 +6,7 @@ import { prisma } from "./db";
  * You can add anything here that you want to be available in your tRPC procedures.
  * For example, user authentication data, database connection, etc.
  */
-export async function createContext(opts: CreateNextContextOptions) {
+export async function createContext() {
   // Example: Get user from request headers or session
   const user = { id: "123", name: "Guest" }; // Replace with actual auth logic
 

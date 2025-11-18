@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { TryCatch } from "@/util/TryCatch";
-export async function GET(request: NextRequest) {
+export async function GET() {
   const {Data, Error} = await TryCatch(prisma.prayerRequest.findMany());
   if (Error) {
     return NextResponse.json({ error: Error.message }, { status: 500 });

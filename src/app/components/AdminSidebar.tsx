@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 const AdminSidebar: React.FC = () => {
@@ -48,9 +49,11 @@ const AdminSidebar: React.FC = () => {
         {/* Logo Section */}
         <div className="p-6 border-b border-gray-700">
           <Link href="/admin" className="flex items-center space-x-4">
-            <img
+            <Image
               src="https://18nlg60l9z.ufs.sh/f/XtuuqJbb4M5FERVSOteiVoFqWR1uLZhSajd85x2cCPeDN0QJ"
               alt="logo"
+              width={40}
+              height={40}
               className="w-10 h-10"
             />
             <span className="text-white font-semibold text-xl">

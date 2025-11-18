@@ -21,31 +21,31 @@ export default function BlogPostPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await fetch(`/api/blog?slug=${params.slug}`);
+        if (!response.ok) {
+          throw new Error("Post not found");
+        }
+        const data = await response.json();
+        if (data.Status !== "PUBLISHED") {
+          throw new Error("Post not available");
+        }
+        setPost(data);
+      } catch (error) {
+        console.error("Error fetching post:", error);
+        setError("Post not found or not available.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
     if (params.slug) {
       fetchPost();
     }
   }, [params.slug]);
-
-  const fetchPost = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await fetch(`/api/blog?slug=${params.slug}`);
-      if (!response.ok) {
-        throw new Error("Post not found");
-      }
-      const data = await response.json();
-      if (data.Status !== "PUBLISHED") {
-        throw new Error("Post not available");
-      }
-      setPost(data);
-    } catch (error) {
-      console.error("Error fetching post:", error);
-      setError("Post not found or not available.");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (loading) {
     return (
