@@ -1,23 +1,21 @@
 import { router, publicProcedure } from "../../trpc";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/drizzle";
+import { Post } from "@/lib/schema";
 import { z } from "zod";
 
 export const postRouter = router({
-    getPost: publicProcedure.query(async ({ ctx }) => {
-        return ctx.prisma.post.findMany();
+    getPost: publicProcedure.query(async () => {
+        return await db.select().from(Post);
     }),
     createPost: publicProcedure.input(z.object({
         title: z.string(),
         content: z.string(),
         Status: z.enum(["DRAFT", "PUBLISHED"]),
-    })).mutation(async ({ ctx, input }) => {
+    })).mutation(async ({ input }) => {
         const slug = input.title.toLowerCase().replace(/\s/g, "-");
-        return ctx.prisma.post.create({
-            data: {
-                slug,
-                ...input,
-            }
+        return await db.insert(Post).values({
+            slug,
+            ...input,
         });
     })
 });

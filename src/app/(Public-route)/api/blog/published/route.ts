@@ -1,17 +1,12 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/drizzle";
+import { Post } from "@/lib/schema";
+import { eq, desc } from "drizzle-orm";
 import { TryCatch } from "@/util/TryCatch";
 
 export async function GET() {
   const { Data, Error } = await TryCatch(
-    prisma.post.findMany({
-      where: {
-        Status: "PUBLISHED",
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    })
+    db.select().from(Post).where(eq(Post.Status, "PUBLISHED")).orderBy(desc(Post.createdAt))
   );
 
   if (Error) {

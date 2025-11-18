@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/drizzle";
+import { Aboutme } from "@/lib/schema";
+import { eq } from "drizzle-orm";
 
 export async function GET() {
   try {
-    const aboutMe = await prisma.aboutme.findMany();
+    const aboutMe = await db.select().from(Aboutme);
     return NextResponse.json(aboutMe);
   } catch (error: unknown) {
     if (error instanceof Error) {
@@ -21,11 +23,9 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
 
   try {
-    const aboutMe = await prisma.aboutme.create({
-      data: {
-        name: body.name,
-        message: body.message,
-      },
+    const aboutMe = await db.insert(Aboutme).values({
+      name: body.name,
+      message: body.message,
     });
     return NextResponse.json(aboutMe);
   } catch (error: unknown) {
@@ -44,13 +44,10 @@ export async function PUT(request: NextRequest) {
   const body = await request.json();
 
   try {
-    const aboutMe = await prisma.aboutme.update({
-      where: { id: body.id },
-      data: {
-        name: body.name,
-        message: body.message,
-      },
-    });
+    const aboutMe = await db.update(Aboutme).set({
+      name: body.name,
+      message: body.message,
+    }).where(eq(Aboutme.id, body.id));
     return NextResponse.json(aboutMe);
   } catch (error: unknown) {
     if (error instanceof Error) {
@@ -68,9 +65,7 @@ export async function DELETE(request: NextRequest) {
   const body = await request.json();
 
   try {
-    const aboutMe = await prisma.aboutme.delete({
-      where: { id: body.id },
-    });
+    const aboutMe = await db.delete(Aboutme).where(eq(Aboutme.id, body.id));
     return NextResponse.json(aboutMe);
   } catch (error: unknown) {
     if (error instanceof Error) {

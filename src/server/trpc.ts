@@ -1,5 +1,5 @@
 import { initTRPC } from "@trpc/server";
-import { prisma } from "./db";
+import { db } from "@/lib/drizzle";
 
 /**
  * Creates context for tRPC requests.
@@ -12,7 +12,7 @@ export async function createContext() {
 
   return {
     user,
-    prisma
+    db,
     // Add your database client here if using Prisma, etc.
   };
 }
