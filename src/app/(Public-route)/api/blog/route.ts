@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/drizzle";
+import { Post } from "@/lib/schema";
+import { eq } from "drizzle-orm";
 import { TryCatch } from "@/util/TryCatch";
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const slug = searchParams.get("slug");
@@ -8,9 +11,7 @@ export async function GET(request: NextRequest) {
   if (slug) {
     // Get specific post by slug
     try {
-      const post = await prisma.post.findUnique({
-        where: { slug: slug },
-      });
+      const post = await db.select().from(Post).where(eq(Post.slug, slug));
 
       if (!post) {
         return NextResponse.json({ error: "Post not found" }, { status: 404 });
@@ -23,13 +24,13 @@ export async function GET(request: NextRequest) {
       }
       return NextResponse.json(
         { error: "An unknown error occurred" },
-        { status: 500 },
+        { status: 500 }
       );
     }
   } else {
     // Get all posts
     try {
-      const posts = await prisma.post.findMany();
+      const posts = await db.select().from(Post);
       return NextResponse.json(posts);
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -37,11 +38,12 @@ export async function GET(request: NextRequest) {
       }
       return NextResponse.json(
         { error: "An unknown error occurred" },
-        { status: 500 },
+        { status: 500 }
       );
     }
   }
 }
+
 export async function POST(request: NextRequest) {
   if (request.body === null) {
     throw new Error("No body found");
@@ -50,31 +52,26 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
 
   const { Data, Error: PostError } = await TryCatch(
-    prisma.post.create({
-      data: {
-        slug: body.slug,
-        title: body.title,
-        content: body.content,
-        Status: body.Status || "DRAFT",
-      },
-    }),
+    db.insert(Post).values({
+      slug: body.slug,
+      title: body.title,
+      content: body.content,
+      Status: body.Status || "DRAFT",
+    })
   );
   if (PostError) {
     return NextResponse.json({ error: PostError.message }, { status: 500 });
   }
   return NextResponse.json(Data);
 }
+
 export async function DELETE(request: NextRequest) {
   if (request.body === null) {
     throw new Error("No body found");
   }
   const body = await request.json();
   const { Data, Error: DeleteError } = await TryCatch(
-    prisma.post.delete({
-      where: {
-        slug: body.slug,
-      },
-    }),
+    db.delete(Post).where(eq(Post.slug, body.slug))
   );
   if (DeleteError) {
     return NextResponse.json({ error: DeleteError.message }, { status: 500 });

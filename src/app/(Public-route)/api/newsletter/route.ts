@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { db } from "@/lib/drizzle";
+import { NewletterPost } from "@/lib/schema";
+import { eq } from "drizzle-orm";
 
 export async function GET() {
   try {
-    const posts = await prisma.newletterPost.findMany();
+    const posts = await db.select().from(NewletterPost);
     return NextResponse.json(posts);
   } catch (error: unknown) {
     if (error instanceof Error) {
@@ -21,12 +23,10 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
 
   try {
-    const post = await prisma.newletterPost.create({
-      data: {
-        title: body.title,
-        content: body.content,
-        status: body.status,
-      },
+    const post = await db.insert(NewletterPost).values({
+      title: body.title,
+      content: body.content,
+      status: body.status,
     });
     return NextResponse.json(post);
   } catch (error: unknown) {
@@ -45,14 +45,11 @@ export async function PUT(request: NextRequest) {
   const body = await request.json();
 
   try {
-    const post = await prisma.newletterPost.update({
-      where: { id: body.id },
-      data: {
-        title: body.title,
-        content: body.content,
-        status: body.status,
-      },
-    });
+    const post = await db.update(NewletterPost).set({
+      title: body.title,
+      content: body.content,
+      status: body.status,
+    }).where(eq(NewletterPost.id, body.id));
     return NextResponse.json(post);
   } catch (error: unknown) {
     if (error instanceof Error) {
@@ -70,9 +67,7 @@ export async function DELETE(request: NextRequest) {
   const body = await request.json();
 
   try {
-    const post = await prisma.newletterPost.delete({
-      where: { id: body.id },
-    });
+    const post = await db.delete(NewletterPost).where(eq(NewletterPost.id, body.id));
     return NextResponse.json(post);
   } catch (error: unknown) {
     if (error instanceof Error) {
