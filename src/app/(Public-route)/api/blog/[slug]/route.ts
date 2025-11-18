@@ -23,16 +23,23 @@ export async function PUT(request: NextRequest) {
   }
   return NextResponse.json(Data);
 }
-interface Context {
-  params: {
-    slug: string;
-  };
+// interface Context {
+//   params: {
+//     slug: string;
+//   };
+// }
+interface Params {
+  slug: string;
 }
-export async function GET(request: NextRequest, context: Context) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<Params> },
+) {
+  const { slug } = await params;
   const { Data, Error: PostError } = await TryCatch(
     prisma.post.findUnique({
       where: {
-        slug: context.params.slug,
+        slug: slug,
       },
     }),
   );

@@ -1,11 +1,16 @@
 import { NextResponse } from "next/server";
 import { users } from "../store";
 
+interface Params {
+  username: string;
+}
+
 export async function GET(
   req: Request,
-  { params }: { params: { username: string } }
+  { params }: { params: Promise<Params> },
 ) {
-  const user = users.find((user) => user.username === params.username);
+  const { username } = await params;
+  const user = users.find((user) => user.username === username);
 
   if (user) {
     return NextResponse.json(user);
