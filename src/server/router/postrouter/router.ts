@@ -1,6 +1,6 @@
 import { router, publicProcedure } from "../../trpc";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/server/db";
 import { z } from "zod";
 
 export const postRouter = router({
