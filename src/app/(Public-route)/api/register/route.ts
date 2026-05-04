@@ -1,10 +1,8 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
-import { PrismaClient } from "../../../../../some/generated/prisma";
+import { prisma } from "@/server/db";
 import { z } from "zod";
 import rateLimit from "@/lib/rate-limiter";
-
-const prisma = new PrismaClient();
 
 const limiter = rateLimit({
   interval: 60 * 1000, // 60 seconds

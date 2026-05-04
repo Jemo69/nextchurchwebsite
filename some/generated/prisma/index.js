@@ -169,7 +169,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/jemo/projects/nextchurch/nextchurchwebsite/some/generated/prisma",
+      "value": "/app/some/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -189,12 +189,11 @@ const config = {
     "previewFeatures": [
       "driverAdapters"
     ],
-    "sourceFilePath": "/home/jemo/projects/nextchurch/nextchurchwebsite/prisma/schema.prisma",
+    "sourceFilePath": "/app/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.19.0",
